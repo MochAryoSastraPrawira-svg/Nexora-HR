@@ -12,9 +12,10 @@ import {
   DashboardStats
 } from "../types";
 
-// Base URL for API calls is relative to the client proxy
+// Base URL for API calls — use env var in production, fallback to local proxy
+const API_BASE = ((import.meta as any)?.env?.VITE_API_BASE_URL) || "/api";
 const API = axios.create({
-  baseURL: "/api",
+  baseURL: API_BASE,
   headers: {
     "Content-Type": "application/json"
   }

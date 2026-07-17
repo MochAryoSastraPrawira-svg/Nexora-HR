@@ -1,5 +1,6 @@
 {
   "name": "hr-management-system",
+  "type": "module",
   "private": true,
   "workspaces": [
     "backend",
@@ -15,6 +16,7 @@
     "postinstall": "node -e \"const fs=require('fs');const p='./node_modules/esbuild/install.js';if(fs.existsSync(p))require('child_process').execSync('node '+p,{stdio:'inherit'})\"",
     "dev": "concurrently -n backend,frontend -c blue,green \"npm --workspace=backend start\" \"npm --workspace=frontend run dev\"",
     "dev:frontend": "npm --workspace=frontend run dev",
+    "build": "npm --prefix frontend run build",
     "start": "npm --workspace=backend start"
   },
   "devDependencies": {
