@@ -1,0 +1,1 @@
+-- HRMS database schema placeholder\n-- Add your SQL tables here\n
