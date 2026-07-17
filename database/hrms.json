@@ -1,0 +1,501 @@
+{
+  "divisions": [
+    {
+      "id": 1,
+      "name": "Teknologi Informasi (IT)"
+    },
+    {
+      "id": 2,
+      "name": "Human Resources (HR)"
+    },
+    {
+      "id": 3,
+      "name": "Keuangan & Akuntansi"
+    },
+    {
+      "id": 4,
+      "name": "Pemasaran & Penjualan"
+    },
+    {
+      "id": 5,
+      "name": "Operasional & Logistik"
+    },
+    {
+      "id": 6,
+      "name": "Legal & Compliance"
+    },
+    {
+      "id": 7,
+      "name": "Layanan Pelanggan"
+    }
+  ],
+  "positions": [
+    {
+      "id": 1,
+      "name": "Senior Software Engineer",
+      "base_salary": 15000000
+    },
+    {
+      "id": 2,
+      "name": "HR Specialist",
+      "base_salary": 8500000
+    },
+    {
+      "id": 3,
+      "name": "Finance Controller",
+      "base_salary": 11000000
+    },
+    {
+      "id": 4,
+      "name": "Marketing Executive",
+      "base_salary": 7500000
+    },
+    {
+      "id": 5,
+      "name": "IT Support Specialist",
+      "base_salary": 6000000
+    },
+    {
+      "id": 6,
+      "name": "Operations Supervisor",
+      "base_salary": 7000000
+    },
+    {
+      "id": 7,
+      "name": "Compliance Officer",
+      "base_salary": 7800000
+    },
+    {
+      "id": 8,
+      "name": "Customer Service Lead",
+      "base_salary": 6500000
+    },
+    {
+      "id": 9,
+      "name": "Project Coordinator",
+      "base_salary": 7200000
+    }
+  ],
+  "employees": [
+    {
+      "nik": "NIK-2026-001",
+      "photo": "",
+      "name": "Budi Santoso",
+      "email": "budi.admin@hrms.com",
+      "phone": "081234567890",
+      "address": "Jl. Sudirman No. 45, Jakarta Selatan",
+      "gender": "Laki-laki",
+      "birth_date": "1990-05-15",
+      "joining_date": "2020-01-10",
+      "status": "Aktif",
+      "division_id": 1,
+      "position_id": 1,
+      "base_salary": 15000000,
+      "remaining_leave": 10,
+      "role": "Admin",
+      "password": "123"
+    },
+    {
+      "nik": "NIK-2026-002",
+      "photo": "",
+      "name": "Siti Rahma",
+      "email": "siti.hr@hrms.com",
+      "phone": "082345678901",
+      "address": "Jl. Gatot Subroto No. 12, Jakarta Pusat",
+      "gender": "Perempuan",
+      "birth_date": "1993-08-22",
+      "joining_date": "2021-03-15",
+      "status": "Aktif",
+      "division_id": 2,
+      "position_id": 2,
+      "base_salary": 8500000,
+      "remaining_leave": 12,
+      "role": "HR",
+      "password": "123"
+    },
+    {
+      "nik": "NIK-2026-003",
+      "photo": "",
+      "name": "Hendra Wijaya",
+      "email": "hendra.manager@hrms.com",
+      "phone": "083456789012",
+      "address": "Jl. Rasuna Said Block B-4, Jakarta Selatan",
+      "gender": "Laki-laki",
+      "birth_date": "1985-11-30",
+      "joining_date": "2019-06-01",
+      "status": "Aktif",
+      "division_id": 3,
+      "position_id": 3,
+      "base_salary": 11000000,
+      "remaining_leave": 12,
+      "role": "Manager",
+      "password": "123"
+    },
+    {
+      "nik": "NIK-2026-004",
+      "photo": "",
+      "name": "Andi Pratama",
+      "email": "andi.employee@hrms.com",
+      "phone": "084567890123",
+      "address": "Jl. Kebon Jeruk No. 8, Jakarta Barat",
+      "gender": "Laki-laki",
+      "birth_date": "1995-02-14",
+      "joining_date": "2023-09-01",
+      "status": "Aktif",
+      "division_id": 1,
+      "position_id": 5,
+      "base_salary": 6000000,
+      "remaining_leave": 4,
+      "role": "Employee",
+      "password": "123"
+    },
+    {
+      "nik": "NIK-2026-005",
+      "photo": "",
+      "name": "Dewi Lestari",
+      "email": "dewi.employee@hrms.com",
+      "phone": "085678901234",
+      "address": "Jl. Margonda Raya No. 110, Depok",
+      "gender": "Perempuan",
+      "birth_date": "1997-07-04",
+      "joining_date": "2024-02-15",
+      "status": "Aktif",
+      "division_id": 4,
+      "position_id": 4,
+      "base_salary": 7500000,
+      "remaining_leave": 11,
+      "role": "Employee",
+      "password": "123"
+    },
+    {
+      "nik": "NIK-2026-007",
+      "photo": "",
+      "name": "Rina Amelia",
+      "email": "rina.amelia@hrms.com",
+      "phone": "086789012345",
+      "address": "Jl. Cempaka No. 22, Bandung",
+      "gender": "Perempuan",
+      "birth_date": "1994-03-18",
+      "joining_date": "2024-05-10",
+      "status": "Aktif",
+      "division_id": 2,
+      "position_id": 2,
+      "base_salary": 8500000,
+      "remaining_leave": 10,
+      "role": "Employee",
+      "password": "123"
+    },
+    {
+      "nik": "NIK-2026-008",
+      "photo": "",
+      "name": "Fajar Nugroho",
+      "email": "fajar.nugroho@hrms.com",
+      "phone": "087890123456",
+      "address": "Jl. Merdeka No. 77, Yogyakarta",
+      "gender": "Laki-laki",
+      "birth_date": "1991-09-09",
+      "joining_date": "2023-11-20",
+      "status": "Aktif",
+      "division_id": 1,
+      "position_id": 1,
+      "base_salary": 15000000,
+      "remaining_leave": 8,
+      "role": "Employee",
+      "password": "123"
+    },
+    {
+      "nik": "NIK-2026-009",
+      "photo": "",
+      "name": "Maya Sari",
+      "email": "maya.sari@hrms.com",
+      "phone": "088901234567",
+      "address": "Jl. Diponegoro No. 15, Surabaya",
+      "gender": "Perempuan",
+      "birth_date": "1996-12-01",
+      "joining_date": "2024-07-05",
+      "status": "Aktif",
+      "division_id": 4,
+      "position_id": 4,
+      "base_salary": 7500000,
+      "remaining_leave": 9,
+      "role": "Employee",
+      "password": "123"
+    },
+    {
+      "nik": "NIK-2026-010",
+      "photo": "",
+      "name": "Dimas Putra",
+      "email": "dimas.putra@hrms.com",
+      "phone": "089012345678",
+      "address": "Jl. Imam Bonjol No. 33, Medan",
+      "gender": "Laki-laki",
+      "birth_date": "1988-06-25",
+      "joining_date": "2022-02-14",
+      "status": "Aktif",
+      "division_id": 3,
+      "position_id": 3,
+      "base_salary": 11000000,
+      "remaining_leave": 11,
+      "role": "Employee",
+      "password": "123"
+    },
+    {
+      "nik": "NIK-2026-011",
+      "photo": "",
+      "name": "Lia Permata",
+      "email": "lia.permata@hrms.com",
+      "phone": "089123456789",
+      "address": "Jl. Ahmad Yani No. 44, Semarang",
+      "gender": "Perempuan",
+      "birth_date": "1998-01-30",
+      "joining_date": "2025-01-15",
+      "status": "Aktif",
+      "division_id": 1,
+      "position_id": 5,
+      "base_salary": 6000000,
+      "remaining_leave": 7,
+      "role": "Employee",
+      "password": "123"
+    }
+  ],
+  "attendance": [
+    {
+      "id": 2,
+      "employee_nik": "NIK-2026-002",
+      "date": "2026-07-14",
+      "check_in": "08:25:00",
+      "check_out": "17:00:00",
+      "status": "Hadir",
+      "notes": "Tepat waktu",
+      "overtime_hours": 0
+    },
+    {
+      "id": 3,
+      "employee_nik": "NIK-2026-003",
+      "date": "2026-07-14",
+      "check_in": "08:45:00",
+      "check_out": "18:15:00",
+      "status": "Terlambat",
+      "notes": "Terlambat 15 menit",
+      "overtime_hours": 0
+    },
+    {
+      "id": 4,
+      "employee_nik": "NIK-2026-004",
+      "date": "2026-07-14",
+      "check_in": "08:10:00",
+      "check_out": "19:15:00",
+      "status": "Hadir",
+      "notes": "Lembur pengerjaan rilis",
+      "overtime_hours": 2
+    },
+    {
+      "id": 5,
+      "employee_nik": "NIK-2026-005",
+      "date": "2026-07-14",
+      "check_in": null,
+      "check_out": null,
+      "status": "Izin",
+      "notes": "Sakit dengan surat dokter",
+      "overtime_hours": 0
+    },
+    {
+      "id": 6,
+      "employee_nik": "NIK-2026-004",
+      "date": "2026-08-01",
+      "check_in": null,
+      "check_out": null,
+      "status": "Cuti",
+      "notes": "Cuti Tahunan: Cuti tahunan pribadi",
+      "overtime_hours": 0
+    },
+    {
+      "id": 7,
+      "employee_nik": "NIK-2026-004",
+      "date": "2026-08-02",
+      "check_in": null,
+      "check_out": null,
+      "status": "Cuti",
+      "notes": "Cuti Tahunan: Cuti tahunan pribadi",
+      "overtime_hours": 0
+    },
+    {
+      "id": 8,
+      "employee_nik": "NIK-2026-004",
+      "date": "2026-08-03",
+      "check_in": null,
+      "check_out": null,
+      "status": "Cuti",
+      "notes": "Cuti Tahunan: Cuti tahunan pribadi",
+      "overtime_hours": 0
+    },
+    {
+      "id": 9,
+      "employee_nik": "NIK-2026-004",
+      "date": "2026-08-04",
+      "check_in": null,
+      "check_out": null,
+      "status": "Cuti",
+      "notes": "Cuti Tahunan: Cuti tahunan pribadi",
+      "overtime_hours": 0
+    },
+    {
+      "id": 10,
+      "employee_nik": "NIK-2026-001",
+      "date": "2026-07-16",
+      "check_in": "08:00:00",
+      "check_out": "17:00:00",
+      "status": "Hadir",
+      "notes": "Koreksi manual oleh HR",
+      "overtime_hours": 0
+    }
+  ],
+  "leaves": [
+    {
+      "id": 1,
+      "employee_nik": "NIK-2026-001",
+      "leave_type": "Tahunan",
+      "start_date": "2026-07-20",
+      "end_date": "2026-07-22",
+      "total_days": 3,
+      "reason": "Acara keluarga di luar kota",
+      "status": "Approved",
+      "approved_by": "NIK-2026-002",
+      "decision_date": "2026-07-10"
+    },
+    {
+      "id": 2,
+      "employee_nik": "NIK-2026-004",
+      "leave_type": "Tahunan",
+      "start_date": "2026-08-01",
+      "end_date": "2026-08-04",
+      "total_days": 4,
+      "reason": "Cuti tahunan pribadi",
+      "status": "Approved",
+      "approved_by": "NIK-2026-001",
+      "decision_date": "2026-07-15"
+    },
+    {
+      "id": 3,
+      "employee_nik": "NIK-2026-005",
+      "leave_type": "Sakit",
+      "start_date": "2026-07-14",
+      "end_date": "2026-07-14",
+      "total_days": 1,
+      "reason": "Sakit demam",
+      "status": "Approved",
+      "approved_by": "NIK-2026-002",
+      "decision_date": "2026-07-14"
+    }
+  ],
+  "payroll": [
+    {
+      "id": 1,
+      "employee_nik": "NIK-2026-001",
+      "month": "06",
+      "year": "2026",
+      "base_salary": 15000000,
+      "allowance": 1500000,
+      "bonus": 2000000,
+      "overtime_pay": 0,
+      "deduction": 0,
+      "tax": 850000,
+      "bpjs": 450000,
+      "total_pay": 17200000,
+      "status": "Paid",
+      "payment_date": "2026-06-25"
+    },
+    {
+      "id": 2,
+      "employee_nik": "NIK-2026-002",
+      "month": "06",
+      "year": "2026",
+      "base_salary": 8500000,
+      "allowance": 850000,
+      "bonus": 500000,
+      "overtime_pay": 0,
+      "deduction": 0,
+      "tax": 380000,
+      "bpjs": 255000,
+      "total_pay": 9215000,
+      "status": "Paid",
+      "payment_date": "2026-06-25"
+    },
+    {
+      "id": 3,
+      "employee_nik": "NIK-2026-003",
+      "month": "06",
+      "year": "2026",
+      "base_salary": 11000000,
+      "allowance": 1100000,
+      "bonus": 1000000,
+      "overtime_pay": 150000,
+      "deduction": 100000,
+      "tax": 550000,
+      "bpjs": 330000,
+      "total_pay": 12270000,
+      "status": "Paid",
+      "payment_date": "2026-06-25"
+    },
+    {
+      "id": 4,
+      "employee_nik": "NIK-2026-004",
+      "month": "06",
+      "year": "2026",
+      "base_salary": 6000000,
+      "allowance": 600000,
+      "bonus": 0,
+      "overtime_pay": 500000,
+      "deduction": 0,
+      "tax": 220000,
+      "bpjs": 180000,
+      "total_pay": 6700000,
+      "status": "Paid",
+      "payment_date": "2026-06-25"
+    }
+  ],
+  "job_vacancies": [
+    {
+      "id": 1,
+      "title": "React Frontend Developer",
+      "division": "Teknologi Informasi (IT)",
+      "description": "Kami mencari developer Frontend React berbakat untuk membangun dashboard dan sistem internal HRMS perusahaan.",
+      "requirements": "- Berpengalaman dengan React, TypeScript, Tailwind CSS\n- Memahami State Management (Zustand/Redux)\n- Terbiasa integrasi REST API",
+      "status": "Buka",
+      "created_at": "2026-07-01"
+    },
+    {
+      "id": 2,
+      "title": "Senior Recruiter Specialist",
+      "division": "Human Resources (HR)",
+      "description": "Bertanggung jawab atas rekrutmen end-to-end karyawan baru di divisi teknologi dan sales.",
+      "requirements": "- Berpengalaman minimal 3 tahun di bidang Recruiter / Talent Acquisition\n- Memiliki komunikasi yang baik\n- Mampu menyusun jadwal interview dan tes",
+      "status": "Buka",
+      "created_at": "2026-07-05"
+    }
+  ],
+  "job_applicants": [
+    {
+      "id": 1,
+      "vacancy_id": 1,
+      "name": "Rian Hidayat",
+      "email": "rian.hidayat@gmail.com",
+      "phone": "087812345678",
+      "cv_path": "cv_rian_hidayat.pdf",
+      "selection_status": "Interview",
+      "interview_schedule": "2026-07-16 10:00:00",
+      "notes": "Kandidat memiliki portfolio yang kuat di React & Tailwind."
+    },
+    {
+      "id": 2,
+      "vacancy_id": 2,
+      "name": "Siska Amelia",
+      "email": "siska.amelia@gmail.com",
+      "phone": "089612345678",
+      "cv_path": "cv_siska_amelia.pdf",
+      "selection_status": "Administrasi",
+      "interview_schedule": null,
+      "notes": "Pendidikan S1 Psikologi, pengalaman HR Intern."
+    }
+  ]
+}
