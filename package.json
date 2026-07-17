@@ -1,0 +1,23 @@
+{
+  "name": "hr-management-system",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "allowScripts": {
+    "esbuild@0.25.12": true,
+    "esbuild@0.28.1": true,
+    "@google/genai@2.11.0": true,
+    "protobufjs@7.6.5": true
+  },
+  "scripts": {
+    "postinstall": "node -e \"const fs=require('fs');const p='./node_modules/esbuild/install.js';if(fs.existsSync(p))require('child_process').execSync('node '+p,{stdio:'inherit'})\"",
+    "dev": "concurrently -n backend,frontend -c blue,green \"npm --workspace=backend start\" \"npm --workspace=frontend run dev\"",
+    "dev:frontend": "npm --workspace=frontend run dev",
+    "start": "npm --workspace=backend start"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
