@@ -45,3 +45,15 @@ Environment:
 
 Warning: The serverless backend uses temp-file-based persistence — not durable. Migrate to a managed DB for production.
 
+Database (Postgres) setup (optional)
+
+1. Create a managed Postgres instance (Render/PlanetScale/Aiven/Heroku/RDS).
+2. Create a database and user, then copy the connection string (eg. `postgres://user:pass@host:5432/dbname`).
+3. In Vercel Project Settings → Environment Variables, add `DATABASE_URL` with the connection string.
+4. Implement the Postgres adapter in `api/db.js` (see scaffold) or ask me to implement it — steps:
+   - Install dependency: `npm install pg`
+   - Update `api/db.js` to initialize a `pg.Pool` and replace file-based read/write with SQL queries.
+5. Deploy — serverless functions will connect to the Postgres instance using `DATABASE_URL`.
+
+Note: `api/db.js` currently provides a scaffold and will throw helpful errors if `DATABASE_URL` is set but the adapter isn't implemented.
+
