@@ -3,7 +3,7 @@ const { readFileSync, writeFileSync, mkdirSync, existsSync } = require('fs');
 const { parse } = require('url');
 const { join } = require('path');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const dataPath = join(__dirname, '..', 'database', 'hrms.json');
 const uploadsDir = join(__dirname, '..', 'frontend', 'public', 'uploads');
 

@@ -452,6 +452,22 @@
       "total_pay": 6700000,
       "status": "Paid",
       "payment_date": "2026-06-25"
+    },
+    {
+      "id": 5,
+      "employee_nik": "NIK-2026-011",
+      "month": "07",
+      "year": "2026",
+      "base_salary": 6000000,
+      "allowance": 600000,
+      "bonus": 0,
+      "overtime_pay": 0,
+      "deduction": 0,
+      "tax": 330000,
+      "bpjs": 180000,
+      "total_pay": 6090000,
+      "status": "Paid",
+      "payment_date": "2026-07-17"
     }
   ],
   "job_vacancies": [

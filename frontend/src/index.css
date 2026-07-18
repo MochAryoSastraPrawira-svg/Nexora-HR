@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
-  
+
   --color-brand-50: #f8fafc;
   --color-brand-100: #f1f5f9;
   --color-brand-200: #e2e8f0;
@@ -13,21 +15,108 @@
   --color-brand-600: #020617;
 }
 
-/* Custom scrollbars and styling resets */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
 body {
+  margin: 0;
   font-family: var(--font-sans);
   background-color: #f8fafc;
   color: #0f172a;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Disable dark mode styling entirely */
 html.dark {
-  background: #f8fafc;
+  background: #020617;
 }
 
+html, body, #root {
+  min-height: 100%;
+}
 
-/* Custom fade animation */
+button, a, input, select, textarea, [role="button"] {
+  transition: all 0.2s ease;
+}
+
+.app-card {
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+}
+
+.dark .app-card {
+  background: rgba(15, 23, 42, 0.92);
+  border-color: rgba(71, 85, 105, 0.8);
+  box-shadow: 0 12px 32px rgba(2, 6, 23, 0.35);
+}
+
+.app-button,
+.app-button-secondary {
+  cursor: pointer;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transform: translateY(0);
+}
+
+.app-button:hover,
+.app-button-secondary:hover {
+  transform: translateY(-1px);
+}
+
+.app-button {
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+  color: white;
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.2);
+}
+
+.app-button-secondary {
+  background: rgba(248, 250, 252, 0.9);
+  color: #334155;
+  border-color: rgba(148, 163, 184, 0.25);
+}
+
+.dark .app-button-secondary {
+  background: rgba(15, 23, 42, 0.9);
+  color: #e2e8f0;
+  border-color: rgba(71, 85, 105, 0.85);
+}
+
+.dark .bg-slate-50 {
+  background-color: #020617 !important;
+}
+
+.dark .bg-white {
+  background-color: #0f172a !important;
+}
+
+.dark .text-slate-800,
+.dark .text-slate-900 {
+  color: #f8fafc !important;
+}
+
+.dark .text-slate-700,
+.dark .text-slate-600,
+.dark .text-slate-500 {
+  color: #cbd5e1 !important;
+}
+
+.dark .border-slate-200,
+.dark .border-slate-100 {
+  border-color: rgba(71, 85, 105, 0.85) !important;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }

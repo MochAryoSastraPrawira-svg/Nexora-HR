@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Clock, CheckCircle, Menu } from "lucide-react";
+import { Clock, CheckCircle, Menu, Moon, Sun } from "lucide-react";
 import { useAuthStore } from "../store/authStore";
+import { useThemeStore } from "../store/themeStore";
 import { apiService } from "../services/api";
 import { toast } from "react-hot-toast";
 
@@ -10,6 +11,7 @@ type HeaderProps = {
 
 export default function Header({ onOpenMobileNav }: HeaderProps) {
   const { user } = useAuthStore();
+  const { theme, toggleTheme } = useThemeStore();
   const [todayAttendance, setTodayAttendance] = useState<any>(null);
   const [time, setTime] = useState(new Date().toLocaleTimeString("id-ID"));
 
@@ -64,8 +66,8 @@ export default function Header({ onOpenMobileNav }: HeaderProps) {
   if (!user) return null;
 
   return (
-    <header className="h-16 bg-white border-b border-slate-200 sticky top-0 z-40 px-4 md:px-6 flex items-center justify-between shadow-sm">
-      <div className="flex items-center gap-4 min-w-0">
+    <header className="min-h-16 bg-white/90 dark:bg-slate-900/90 border-b border-slate-200/80 dark:border-slate-800/80 sticky top-0 z-40 px-4 py-3 md:px-6 flex flex-wrap items-center justify-between gap-3 shadow-sm backdrop-blur transition-colors duration-300">
+      <div className="flex items-center gap-3 min-w-0 flex-1">
         <button
           onClick={onOpenMobileNav}
           className="md:hidden p-2 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 cursor-pointer"
@@ -75,7 +77,7 @@ export default function Header({ onOpenMobileNav }: HeaderProps) {
         </button>
 
         <div className="min-w-0">
-          <span className="text-xs text-slate-400 font-medium uppercase tracking-wider block truncate">
+          <span className="text-[11px] sm:text-xs text-slate-400 font-medium uppercase tracking-wider block truncate">
             {new Date().toLocaleDateString("id-ID", {
               weekday: "long",
               year: "numeric",
@@ -83,14 +85,24 @@ export default function Header({ onOpenMobileNav }: HeaderProps) {
               day: "numeric"
             })}
           </span>
-          <h1 className="text-base font-semibold text-slate-800 truncate">
+          <h1 className="text-sm sm:text-base font-semibold text-slate-800 truncate">
             Halo, {user.name} <span className="font-normal text-slate-500">({user.position})</span>
           </h1>
         </div>
       </div>
 
-      <div className="flex items-center gap-3">
-        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-slate-50 rounded-lg border border-slate-200 font-mono text-sm text-slate-700 font-semibold shadow-inner">
+      <div className="flex items-center gap-2 sm:gap-3 ml-auto">
+        <button
+          type="button"
+          onClick={toggleTheme}
+          className="app-button-secondary flex items-center gap-2 px-3 py-2 rounded-xl"
+          aria-label="Toggle theme"
+        >
+          {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+          <span className="text-xs font-semibold uppercase tracking-wide">{theme === "dark" ? "Light" : "Dark"}</span>
+        </button>
+
+        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-slate-50 dark:bg-slate-800/70 rounded-lg border border-slate-200 dark:border-slate-700 font-mono text-sm text-slate-700 dark:text-slate-200 font-semibold shadow-inner">
           <Clock size={16} className="text-slate-400 animate-pulse" />
           <span>{time}</span>
         </div>

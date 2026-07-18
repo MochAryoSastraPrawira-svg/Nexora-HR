@@ -104,22 +104,22 @@ export default function Dashboard() {
 
   if (loading || !stats) {
     return (
-      <div className="p-6 space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="p-3 sm:p-4 lg:p-5 space-y-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
           {[1, 2, 3, 4].map(n => (
-            <div key={n} className="bg-white p-6 rounded-2xl border border-slate-200 animate-pulse h-28" />
+            <div key={n} className="app-card p-6 animate-pulse h-28" />
           ))}
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 animate-pulse h-80 lg:col-span-2" />
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 animate-pulse h-80" />
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-3">
+          <div className="app-card p-6 animate-pulse h-80 xl:col-span-2" />
+          <div className="app-card p-6 animate-pulse h-80" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="p-3 lg:p-4 lg:h-[calc(100vh-64px)] flex flex-col gap-3 animate-fade-in bg-[#F8FAFC] overflow-hidden">
+    <div className="p-3 sm:p-4 lg:p-5 lg:h-[calc(100vh-64px)] flex flex-col gap-3 animate-fade-in bg-slate-50 dark:bg-slate-950 overflow-x-hidden overflow-y-auto transition-colors duration-300">
       {/* Page Title Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-1 shrink-0">
         <div>
@@ -136,9 +136,9 @@ export default function Dashboard() {
       </div>
 
       {/* KPI Cards Row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 shrink-0">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 shrink-0">
         {/* BLOCK 1: Stats Karyawan */}
-        <div className="bg-white p-3 rounded-xl border border-slate-200/60 shadow-xs flex items-center justify-between group hover:border-indigo-500/50 transition-all duration-300">
+        <div className="app-card p-3 flex items-center justify-between group hover:border-indigo-500/50 transition-all duration-300">
           <div className="min-w-0">
             <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Karyawan Aktif</span>
             <span className="text-xl font-bold font-display text-slate-800 tracking-tight mt-0.5 block">
@@ -152,7 +152,7 @@ export default function Dashboard() {
         </div>
 
         {/* BLOCK 2: Stats Divisi */}
-        <div className="bg-white p-3 rounded-xl border border-slate-200/60 shadow-xs flex items-center justify-between group hover:border-indigo-500/50 transition-all duration-300">
+        <div className="app-card p-3 flex items-center justify-between group hover:border-indigo-500/50 transition-all duration-300">
           <div className="min-w-0">
             <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Divisi & Jabatan</span>
             <div className="flex items-baseline gap-1 mt-0.5 text-slate-855">
@@ -174,7 +174,7 @@ export default function Dashboard() {
         </div>
 
         {/* BLOCK 3: Stats Kehadiran */}
-        <div className="bg-white p-3 rounded-xl border border-slate-200/60 shadow-xs flex items-center justify-between group hover:border-indigo-500/50 transition-all duration-300">
+        <div className="app-card p-3 flex items-center justify-between group hover:border-indigo-500/50 transition-all duration-300">
           <div className="min-w-0">
             <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Hadir Hari Ini</span>
             <span className="text-xl font-bold font-display text-slate-800 tracking-tight mt-0.5 block">
@@ -188,7 +188,7 @@ export default function Dashboard() {
         </div>
 
         {/* BLOCK 4: Stats Penggajian */}
-        <div className="bg-white p-3 rounded-xl border border-slate-200/60 shadow-xs flex items-center justify-between group hover:border-indigo-500/50 transition-all duration-300">
+        <div className="app-card p-3 flex items-center justify-between group hover:border-indigo-500/50 transition-all duration-300">
           <div className="min-w-0">
             <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Total Kas Gaji</span>
             <span className="text-lg font-bold font-display text-slate-800 tracking-tight mt-0.5 block truncate">
@@ -203,11 +203,11 @@ export default function Dashboard() {
       </div>
 
       {/* Charts and Details Section */}
-      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-3">
+      <div className="flex-1 min-h-0 grid grid-cols-1 xl:grid-cols-12 gap-3">
         {/* Left Side (col-span-8) - Payroll Chart and Bottom Charts */}
-        <div className="lg:col-span-8 flex flex-col gap-3 min-h-0">
+        <div className="xl:col-span-8 flex flex-col gap-3 min-h-0">
           {/* Payroll Trend Chart */}
-          <div className="h-48 lg:h-[200px] bg-white p-3 rounded-xl border border-slate-200/60 shadow-xs flex flex-col justify-between shrink-0">
+          <div className="app-card h-56 sm:h-64 lg:h-[220px] p-3 flex flex-col justify-between shrink-0">
             <div className="flex items-center justify-between mb-1 shrink-0">
               <div>
                 <span className="text-[9px] font-bold text-indigo-650 uppercase tracking-widest block">Statistik Keuangan</span>
@@ -235,9 +235,9 @@ export default function Dashboard() {
           </div>
 
           {/* Bottom Row - Recruitment & Attendance (h-36 lg:h-[160px]) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 h-36 lg:h-[160px] shrink-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 min-h-[14rem] lg:min-h-[16rem] shrink-0">
             {/* Recruitment */}
-            <div className="bg-white p-3 rounded-xl border border-slate-200/60 shadow-xs flex flex-col justify-between overflow-hidden">
+            <div className="app-card p-3 flex flex-col justify-between overflow-hidden">
               <div className="shrink-0">
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Sumber Daya Manusia</span>
                 <h3 className="text-xs font-bold text-slate-855 mt-0.5">Status Seleksi Pelamar</h3>
@@ -288,7 +288,7 @@ export default function Dashboard() {
             </div>
 
             {/* Attendance Histogram */}
-            <div className="bg-white p-3 rounded-xl border border-slate-200/60 shadow-xs flex flex-col justify-between overflow-hidden">
+            <div className="app-card p-3 flex flex-col justify-between overflow-hidden">
               <div className="shrink-0">
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Analitik Presensi</span>
                 <h3 className="text-xs font-bold text-slate-855 mt-0.5">Rekapitulasi Absensi</h3>
@@ -326,9 +326,9 @@ export default function Dashboard() {
         </div>
 
         {/* Right Side (col-span-4) - Activities Feed and Quick Actions */}
-        <div className="lg:col-span-4 flex flex-col gap-3 min-h-0">
+        <div className="xl:col-span-4 flex flex-col gap-3 min-h-0">
           {/* Activities Feed */}
-          <div className="h-48 lg:h-[200px] bg-white p-3 rounded-xl border border-slate-200/60 shadow-xs flex flex-col justify-between overflow-hidden shrink-0">
+          <div className="app-card h-56 sm:h-64 lg:h-[220px] p-3 flex flex-col justify-between overflow-hidden shrink-0">
             <div className="flex items-center justify-between mb-1.5 border-b border-slate-100 pb-1 shrink-0">
               <div>
                 <span className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">Log Real-Time</span>
@@ -371,7 +371,7 @@ export default function Dashboard() {
           </div>
 
           {/* Quick Actions (Mini Grid) */}
-          <div className="bg-gradient-to-br from-indigo-600 to-indigo-700 p-3 rounded-xl border border-indigo-500/20 shadow-xs flex flex-col justify-between shrink-0 h-36 lg:h-[160px] text-white">
+          <div className="bg-gradient-to-br from-indigo-600 to-indigo-700 p-3 rounded-2xl border border-indigo-500/20 shadow-lg shadow-indigo-950/20 flex flex-col justify-between shrink-0 min-h-[10rem] lg:min-h-[12rem] text-white">
             <div className="shrink-0">
               <h3 className="text-[10px] font-bold flex items-center gap-1.5">
                 <Zap size={12} className="text-amber-355 animate-pulse" />

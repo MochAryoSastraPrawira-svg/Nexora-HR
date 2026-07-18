@@ -23,16 +23,22 @@ type SidebarProps = {
   isMobileDrawerOpen?: boolean;
   /** Close drawer (used on overlay click + after navigation) */
   onMobileDrawerClose?: () => void;
+  /** Notify parent when desktop sidebar collapse state changes */
+  onSidebarCollapseChange?: (collapsed: boolean) => void;
 };
 
-function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
+function SidebarContent({ onNavigate, onCollapseChange }: { onNavigate?: () => void; onCollapseChange?: (collapsed: boolean) => void }) {
   const safeOnNavigate = onNavigate ?? (() => {});
 
   const { user, logout } = useAuthStore();
   const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const toggleCollapse = () => setIsCollapsed((v) => !v);
+  const toggleCollapse = () => {
+    const next = !isCollapsed;
+    setIsCollapsed(next);
+    onCollapseChange?.(next);
+  };
 
   const menuItems = useMemo(
     () => [
@@ -56,12 +62,12 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <div
-      className={`bg-white text-slate-900 flex flex-col h-screen transition-all duration-300 border-r border-slate-200 shrink-0 ${
+      className={`bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-slate-100 flex flex-col h-full min-h-screen transition-all duration-300 border-r border-slate-200 dark:border-slate-800 shrink-0 ${
         isCollapsed ? "w-16" : "w-64"
       }`}
     >
       {/* Brand Header */}
-      <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200">
+      <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200 dark:border-slate-800">
         {!isCollapsed && (
           <div className="flex items-center gap-2">
             <NexoraLogo />
@@ -87,7 +93,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 
       {/* User Quick Info */}
       {!isCollapsed && user && (
-        <div className="p-4 border-b border-slate-100 flex items-center gap-3 bg-slate-50/60">
+        <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3 bg-slate-50/70 dark:bg-slate-800/40">
           <div className="w-10 h-10 rounded-full border border-slate-200 bg-slate-150 overflow-hidden shrink-0 flex items-center justify-center font-bold text-slate-700 text-sm">
             {user.photo ? (
               <img src={user.photo} alt={user.name} className="w-full h-full object-cover" />
@@ -117,10 +123,10 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
               key={item.id}
               to={item.path}
               onClick={safeOnNavigate}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group relative cursor-pointer ${
+              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group relative cursor-pointer ${
                 isActive
-                  ? "bg-slate-100 text-indigo-600 font-bold border-l-4 border-indigo-600 pl-2 rounded-l-none"
-                  : "text-slate-500 hover:text-slate-900 hover:bg-slate-50"
+                  ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-300 font-bold border-l-4 border-indigo-600 pl-2 rounded-l-none"
+                  : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800"
               }`}
             >
               <IconComponent
@@ -140,10 +146,10 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
       </nav>
 
       {/* Footer / Logout */}
-      <div className="p-2 border-t border-slate-100">
+      <div className="p-2 border-t border-slate-100 dark:border-slate-800">
         <button
           onClick={logout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-rose-600 hover:text-rose-700 hover:bg-rose-50 transition-colors cursor-pointer group relative"
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-rose-600 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors cursor-pointer group relative"
         >
           <LogOut size={18} />
           {!isCollapsed && <span>Log Out</span>}
@@ -154,21 +160,23 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 }
 
 export default function Sidebar({ isMobileDrawerOpen = false, onMobileDrawerClose }: SidebarProps) {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
   return (
     <>
-      {/* Desktop sidebar */}
-      <div className="hidden md:block sticky top-0 h-screen shrink-0">
-        <SidebarContent />
+      {/* Desktop sidebar - fixed so it never scrolls */}
+      <div className={`hidden md:flex md:shrink-0 md:fixed md:top-0 md:left-0 md:h-screen md:z-40 ${isCollapsed ? "md:w-16" : "md:w-64"}`}>
+        <SidebarContent onCollapseChange={setIsCollapsed} />
       </div>
 
       {/* Mobile drawer */}
       <div className={`md:hidden ${isMobileDrawerOpen ? "block" : "hidden"}`}>
         <div
-          className="fixed inset-0 z-50 bg-slate-900/40"
+          className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-[1px]"
           onClick={onMobileDrawerClose}
           aria-hidden
         />
-        <div className="fixed inset-y-0 left-0 z-50 w-64">
+        <div className="fixed inset-y-0 left-0 z-50 w-[82vw] max-w-72 shadow-2xl">
           <div className="absolute top-3 right-3 z-60">
             <button
               onClick={onMobileDrawerClose}

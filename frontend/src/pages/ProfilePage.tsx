@@ -18,7 +18,7 @@ import {
 import { toast } from "react-hot-toast";
 
 export default function ProfilePage() {
-  const { user } = useAuthStore();
+  const { user, updateUser } = useAuthStore();
   const [profile, setProfile] = useState<Employee | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -26,6 +26,8 @@ export default function ProfilePage() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [editedEmail, setEditedEmail] = useState("");
+  const [isEmailSaving, setIsEmailSaving] = useState(false);
 
   const fetchProfile = async () => {
     if (!user) return;
@@ -33,10 +35,39 @@ export default function ProfilePage() {
       setLoading(true);
       const res = await apiService.auth.getProfile(user.nik);
       setProfile(res);
+      setEditedEmail(res.email);
     } catch (e) {
       toast.error("Gagal memuat profil");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleUpdateEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user || !profile) return;
+
+    const nextEmail = editedEmail.trim();
+    if (!nextEmail) {
+      toast.error("Email tidak boleh kosong.");
+      return;
+    }
+
+    if (nextEmail === profile.email) {
+      toast("Email belum diubah.");
+      return;
+    }
+
+    try {
+      setIsEmailSaving(true);
+      await apiService.auth.updateProfile(user.nik, { email: nextEmail });
+      setProfile((prev) => (prev ? { ...prev, email: nextEmail } : prev));
+      updateUser({ email: nextEmail });
+      toast.success("Email kantor berhasil diperbarui.");
+    } catch (err: any) {
+      toast.error(err.response?.data?.error || "Gagal memperbarui email.");
+    } finally {
+      setIsEmailSaving(false);
     }
   };
 
@@ -110,12 +141,27 @@ export default function ProfilePage() {
           </div>
 
           <div className="border-t border-slate-100 pt-6 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-600">
-            <div className="flex items-center gap-2.5">
-              <Mail size={16} className="text-slate-400" />
-              <div>
-                <p className="text-[10px] text-slate-400 font-medium uppercase">Email Kantor</p>
-                <span className="font-semibold text-slate-700">{profile.email}</span>
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-2.5">
+                <Mail size={16} className="text-slate-400" />
+                <div className="flex-1">
+                  <p className="text-[10px] text-slate-400 font-medium uppercase">Email Kantor</p>
+                  <input
+                    type="email"
+                    autoComplete="email"
+                    value={editedEmail}
+                    onChange={(e) => setEditedEmail(e.target.value)}
+                    className="w-full text-sm border border-slate-200 rounded-xl px-3 py-2 outline-hidden focus:border-indigo-500 transition-colors bg-slate-50"
+                  />
+                </div>
               </div>
+              <button
+                onClick={handleUpdateEmail}
+                disabled={isEmailSaving}
+                className="w-full inline-flex items-center justify-center rounded-xl border border-indigo-200 bg-indigo-50 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-indigo-700 hover:bg-indigo-100 transition-colors disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                {isEmailSaving ? "Menyimpan..." : "Perbarui Email Kantor"}
+              </button>
             </div>
             <div className="flex items-center gap-2.5">
               <Phone size={16} className="text-slate-400" />

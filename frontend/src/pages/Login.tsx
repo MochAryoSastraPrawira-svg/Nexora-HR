@@ -87,9 +87,9 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+    <div className="min-h-screen w-full bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-3 sm:p-4 lg:p-6 transition-colors duration-300">
       {/* Container holding Login / Register Panel */}
-      <div className="w-full max-w-md bg-white border border-slate-200/80 shadow-2xl rounded-3xl p-8 space-y-6 relative overflow-hidden animate-fade-in">
+      <div className="w-full max-w-md bg-white/95 dark:bg-slate-900/95 border border-slate-200/80 dark:border-slate-800/80 shadow-2xl rounded-3xl p-5 sm:p-8 space-y-6 relative overflow-hidden animate-fade-in backdrop-blur transition-all duration-300">
         
         {/* Decorative backdrop glow */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 blur-3xl rounded-full" />
@@ -114,15 +114,16 @@ export default function Login() {
             {/* Credentials Form (Login) */}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">Identitas Pengguna</label>
+                <label className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">Email / NIK</label>
                 <div className="relative">
                   <Mail size={16} className="text-slate-400 absolute left-3 top-3.5" />
                   <input
                     type="text"
-                    placeholder="NIK (NIK-2026-001) atau Email Kerja"
+                    autoComplete="username"
+                    placeholder="Email kerja atau NIK"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="w-full text-sm pl-10 pr-4 py-3 border border-slate-200 rounded-xl outline-hidden focus:border-indigo-500 transition-colors bg-slate-50/50"
+                    className="w-full text-sm pl-10 pr-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl outline-hidden focus:border-indigo-500 transition-colors bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100"
                     required
                   />
                 </div>
@@ -137,7 +138,7 @@ export default function Login() {
                     placeholder="Masukkan password portal"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full text-sm pl-10 pr-4 py-3 border border-slate-200 rounded-xl outline-hidden focus:border-indigo-500 transition-colors bg-slate-50/50"
+                    className="w-full text-sm pl-10 pr-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl outline-hidden focus:border-indigo-500 transition-colors bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100"
                     required
                   />
                 </div>
@@ -147,7 +148,7 @@ export default function Login() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white font-semibold text-xs uppercase tracking-wider py-3.5 rounded-xl shadow-lg shadow-indigo-500/15 transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+                className="app-button w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white font-semibold text-xs uppercase tracking-wider py-3.5 rounded-xl shadow-lg shadow-indigo-500/15 flex items-center justify-center gap-1.5"
               >
                 {loading ? "Menautkan Kunci..." : "Masuk ke Dashboard"}
               </button>
@@ -161,7 +162,7 @@ export default function Login() {
 
             <button
               onClick={() => setIsRegisterMode(true)}
-              className="w-full border border-slate-200 hover:bg-slate-50 text-slate-650 font-semibold text-xs uppercase tracking-wider py-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5"
+              className="app-button-secondary w-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-650 dark:text-slate-300 font-semibold text-xs uppercase tracking-wider py-3 rounded-xl flex items-center justify-center gap-1.5"
             >
               Buat Akun Identitas Baru
             </button>
@@ -179,7 +180,7 @@ export default function Login() {
                     placeholder="Masukkan nama lengkap Anda"
                     value={regName}
                     onChange={(e) => setRegName(e.target.value)}
-                    className="w-full text-sm pl-10 pr-4 py-3 border border-slate-200 rounded-xl outline-hidden focus:border-indigo-500 transition-colors bg-slate-50/50"
+                    className="w-full text-sm pl-10 pr-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl outline-hidden focus:border-indigo-500 transition-colors bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100"
                     required
                   />
                 </div>
@@ -194,7 +195,7 @@ export default function Login() {
                     placeholder="nama.email@domain.com"
                     value={regEmail}
                     onChange={(e) => setRegEmail(e.target.value)}
-                    className="w-full text-sm pl-10 pr-4 py-3 border border-slate-200 rounded-xl outline-hidden focus:border-indigo-500 transition-colors bg-slate-50/50"
+                    className="w-full text-sm pl-10 pr-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl outline-hidden focus:border-indigo-500 transition-colors bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100"
                     required
                   />
                 </div>
@@ -209,7 +210,7 @@ export default function Login() {
                     placeholder="Buat sandi minimal 6 karakter"
                     value={regPassword}
                     onChange={(e) => setRegPassword(e.target.value)}
-                    className="w-full text-sm pl-10 pr-4 py-3 border border-slate-200 rounded-xl outline-hidden focus:border-indigo-500 transition-colors bg-slate-50/50"
+                    className="w-full text-sm pl-10 pr-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl outline-hidden focus:border-indigo-500 transition-colors bg-slate-50/70 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100"
                     required
                   />
                 </div>
@@ -219,7 +220,7 @@ export default function Login() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-indigo-650 hover:bg-indigo-750 disabled:bg-indigo-400 text-white font-semibold text-xs uppercase tracking-wider py-3.5 rounded-xl shadow-lg shadow-indigo-500/15 transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+                className="app-button w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white font-semibold text-xs uppercase tracking-wider py-3.5 rounded-xl shadow-lg shadow-indigo-500/15 flex items-center justify-center gap-1.5"
               >
                 {loading ? "Menyimpan Data..." : "Daftarkan Identitas Baru"}
               </button>
@@ -233,7 +234,7 @@ export default function Login() {
 
             <button
               onClick={() => setIsRegisterMode(false)}
-              className="w-full border border-slate-200 hover:bg-slate-50 text-slate-650 font-semibold text-xs uppercase tracking-wider py-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5"
+              className="app-button-secondary w-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs uppercase tracking-wider py-3 rounded-xl flex items-center justify-center gap-1.5"
             >
               Kembali ke Login
             </button>
