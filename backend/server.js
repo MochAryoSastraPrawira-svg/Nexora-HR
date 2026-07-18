@@ -1,19 +1,45 @@
 const http = require('http');
 const { readFileSync, writeFileSync, mkdirSync, existsSync } = require('fs');
 const { parse } = require('url');
-const { join } = require('path');
+const { join, resolve } = require('path');
 
-const port = process.env.PORT || 3001;
-const dataPath = join(__dirname, '..', 'database', 'hrms.json');
-const uploadsDir = join(__dirname, '..', 'frontend', 'public', 'uploads');
+const PORT = process.env.PORT || 3001;
+const dataPath = resolve(__dirname, '..', 'database', 'hrms.json');
+const uploadsDir = resolve(__dirname, '..', 'frontend', 'public', 'uploads');
 
 function loadData() {
-  const content = readFileSync(dataPath, 'utf-8');
-  return JSON.parse(content);
+  console.log('Loading data from:', dataPath);
+  
+  if (!existsSync(dataPath)) {
+    const error = new Error(`Database file not found at: ${dataPath}`);
+    console.error('========== DATABASE ERROR ==========');
+    console.error(error.stack);
+    throw error;
+  }
+
+  try {
+    const content = readFileSync(dataPath, 'utf-8');
+    const data = JSON.parse(content);
+    console.log('Data loaded successfully. Employees count:', (data.employees || []).length);
+    return data;
+  } catch (error) {
+    console.error('========== JSON PARSE ERROR ==========');
+    console.error('Failed to parse database file:', error.message);
+    console.error(error.stack);
+    throw new Error(`Invalid JSON in database file: ${error.message}`);
+  }
 }
 
 function saveData(data) {
-  writeFileSync(dataPath, JSON.stringify(data, null, 2), 'utf-8');
+  try {
+    writeFileSync(dataPath, JSON.stringify(data, null, 2), 'utf-8');
+    console.log('Data saved successfully');
+  } catch (error) {
+    console.error('========== SAVE DATA ERROR ==========');
+    console.error('Failed to save data:', error.message);
+    console.error(error.stack);
+    throw error;
+  }
 }
 
 function sendJSON(res, status, payload) {
@@ -184,24 +210,62 @@ const server = http.createServer(async (req, res) => {
   const pathname = parsedUrl.pathname || '';
   const query = parsedUrl.query || {};
 
+  console.log('Incoming request:', req.method, pathname);
+
   if (req.method === 'OPTIONS') {
     return sendJSON(res, 204, {});
   }
 
   try {
+    // ── Root Endpoint ───────────────────────────────────────────────────
+    if (pathname === '/' && req.method === 'GET') {
+      return sendJSON(res, 200, { success: true, message: 'HRMS Backend Running' });
+    }
+
+    // ── Health Endpoint ─────────────────────────────────────────────────
+    if (pathname === '/health' && req.method === 'GET') {
+      return sendJSON(res, 200, { status: 'ok' });
+    }
+
     // ── Auth ──────────────────────────────────────────────────────────
     if (pathname === '/api/auth/login' && req.method === 'POST') {
       const body = await parseBody(req);
       const { email, password } = body;
+      
+      console.log('Login attempt - Email:', email);
+      console.log('Login attempt - Password provided:', !!password);
+      
       const data = loadData();
+      const employeeCount = (data.employees || []).length;
+      console.log('Total employees in database:', employeeCount);
+
+      if (!email || !email.trim()) {
+        console.log('Login failed: Email is empty');
+        return sendJSON(res, 400, { success: false, error: 'Email/NIK harus diisi.' });
+      }
+
+      if (!password || !password.trim()) {
+        console.log('Login failed: Password is empty');
+        return sendJSON(res, 400, { success: false, error: 'Password harus diisi.' });
+      }
+
       const employee = (data.employees || []).find((emp) => {
-        return (emp.email === email || emp.nik === email) && emp.password === password;
+        return (emp.email === email || emp.nik === email);
       });
 
+      console.log('Employee found:', !!employee);
+
       if (!employee) {
+        console.log('Login failed: Employee not found');
         return sendJSON(res, 401, { success: false, error: 'Email/NIK atau password salah.' });
       }
 
+      if (employee.password !== password) {
+        console.log('Login failed: Wrong password');
+        return sendJSON(res, 401, { success: false, error: 'Email/NIK atau password salah.' });
+      }
+
+      console.log('Login successful for:', employee.email);
       return sendJSON(res, 200, { success: true, user: formatAuthUser(employee, data) });
     }
 
@@ -294,6 +358,11 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/divisions' && req.method === 'POST') {
       const body = await parseBody(req);
       const data = loadData();
+      
+      if (!body.name || !body.name.trim()) {
+        return sendJSON(res, 400, { success: false, error: 'Nama divisi harus diisi.' });
+      }
+      
       const newDivision = { id: nextId(data.divisions), name: body.name };
       data.divisions.push(newDivision);
       saveData(data);
@@ -306,6 +375,11 @@ const server = http.createServer(async (req, res) => {
       const data = loadData();
       const division = (data.divisions || []).find((d) => d.id === id);
       if (!division) return sendJSON(res, 404, { success: false, error: 'Divisi tidak ditemukan.' });
+      
+      if (!body.name || !body.name.trim()) {
+        return sendJSON(res, 400, { success: false, error: 'Nama divisi harus diisi.' });
+      }
+      
       division.name = body.name;
       saveData(data);
       return sendJSON(res, 200, { success: true, data: division });
@@ -328,6 +402,11 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/positions' && req.method === 'POST') {
       const body = await parseBody(req);
       const data = loadData();
+      
+      if (!body.name || !body.name.trim()) {
+        return sendJSON(res, 400, { success: false, error: 'Nama jabatan harus diisi.' });
+      }
+      
       const newPosition = {
         id: nextId(data.positions),
         name: body.name,
@@ -344,6 +423,11 @@ const server = http.createServer(async (req, res) => {
       const data = loadData();
       const position = (data.positions || []).find((p) => p.id === id);
       if (!position) return sendJSON(res, 404, { success: false, error: 'Jabatan tidak ditemukan.' });
+      
+      if (!body.name || !body.name.trim()) {
+        return sendJSON(res, 400, { success: false, error: 'Nama jabatan harus diisi.' });
+      }
+      
       position.name = body.name;
       position.base_salary = body.base_salary;
       saveData(data);
@@ -439,6 +523,11 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/attendance/checkin' && req.method === 'POST') {
       const body = await parseBody(req);
       const { nik, notes } = body;
+      
+      if (!nik) {
+        return sendJSON(res, 400, { success: false, error: 'NIK harus diisi.' });
+      }
+      
       const data = loadData();
       const today = todayStr();
       const checkIn = nowTimeStr();
@@ -469,6 +558,11 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/attendance/checkout' && req.method === 'POST') {
       const body = await parseBody(req);
       const { nik } = body;
+      
+      if (!nik) {
+        return sendJSON(res, 400, { success: false, error: 'NIK harus diisi.' });
+      }
+      
       const data = loadData();
       const today = todayStr();
       const checkOut = nowTimeStr();
@@ -495,6 +589,11 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/attendance/manual' && req.method === 'POST') {
       const body = await parseBody(req);
       const data = loadData();
+      
+      if (!body.employee_nik || !body.date) {
+        return sendJSON(res, 400, { success: false, error: 'NIK dan tanggal harus diisi.' });
+      }
+      
       const existing = (data.attendance || []).find(
         (a) => a.employee_nik === body.employee_nik && a.date === body.date
       );
@@ -546,6 +645,11 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/leaves' && req.method === 'POST') {
       const body = await parseBody(req);
       const data = loadData();
+      
+      if (!body.employee_nik || !body.leave_type || !body.start_date || !body.end_date || !body.total_days || !body.reason) {
+        return sendJSON(res, 400, { success: false, error: 'Semua field harus diisi.' });
+      }
+      
       const record = {
         id: nextId(data.leaves),
         employee_nik: body.employee_nik,
@@ -619,6 +723,11 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/payroll' && req.method === 'POST') {
       const body = await parseBody(req);
       const data = loadData();
+      
+      if (!body.employee_nik || !body.month || !body.year) {
+        return sendJSON(res, 400, { success: false, error: 'NIK, bulan, dan tahun harus diisi.' });
+      }
+      
       const employee = getEmployee(data, body.employee_nik);
       if (!employee) return sendJSON(res, 404, { success: false, error: 'Karyawan tidak ditemukan.' });
 
@@ -727,6 +836,11 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/recruitment/vacancies' && req.method === 'POST') {
       const body = await parseBody(req);
       const data = loadData();
+      
+      if (!body.title || !body.division) {
+        return sendJSON(res, 400, { success: false, error: 'Judul dan divisi harus diisi.' });
+      }
+      
       const vacancy = {
         id: nextId(data.job_vacancies),
         title: body.title,
@@ -769,6 +883,11 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/recruitment/applicants' && req.method === 'POST') {
       const body = await parseBody(req);
       const data = loadData();
+      
+      if (!body.vacancy_id || !body.name || !body.email) {
+        return sendJSON(res, 400, { success: false, error: 'Lowongan, nama, dan email harus diisi.' });
+      }
+      
       const applicant = {
         id: nextId(data.job_applicants),
         vacancy_id: body.vacancy_id,
@@ -807,6 +926,11 @@ const server = http.createServer(async (req, res) => {
     // ── Upload ────────────────────────────────────────────────────────
     if (pathname === '/api/upload' && req.method === 'POST') {
       const body = await parseBody(req);
+      
+      if (!body.filename) {
+        return sendJSON(res, 400, { success: false, error: 'Filename harus diisi.' });
+      }
+      
       if (!existsSync(uploadsDir)) mkdirSync(uploadsDir, { recursive: true });
       const filePath = `/uploads/${body.filename}`;
       if (body.fileData && body.fileData.startsWith('data:')) {
@@ -818,9 +942,17 @@ const server = http.createServer(async (req, res) => {
 
     sendJSON(res, 404, { success: false, error: 'Endpoint tidak ditemukan.' });
   } catch (error) {
-    console.error(error);
-    sendJSON(res, 500, { success: false, error: 'Terjadi kesalahan server.' });
+    console.error('========== SERVER ERROR ==========');
+    console.error('Request:', req.method, pathname);
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
+    
+    sendJSON(res, 500, {
+      success: false,
+      message: error.message,
+      stack: error.stack
+    });
   }
 });
 
-server.listen(port, () => console.log('Backend running on port ' + port));
+server.listen(PORT, () => console.log('Backend running on port ' + PORT));
